@@ -56,8 +56,9 @@ public class Usuario {
 		return senha;
 	}
 	
-	public void abrirChamado() {
-		
-	}
+	 public Chamado abrirChamado(String descricao) {
+	        int id = (int) (Math.random() * 1000); // Gerar um ID aleatório
+	        return new Chamado(id, descricao, this);
+	    }
 	
 }

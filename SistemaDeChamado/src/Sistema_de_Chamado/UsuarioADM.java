@@ -27,11 +27,29 @@ enum Cargo{
 public class UsuarioADM extends Usuario{
 	
 	private Cargo cargo;
+	private String senha;
 	
 
-	public UsuarioADM(String name, String surname, Area area) {
+	public UsuarioADM(String name, String surname, Area area, Cargo cargo, String senha) {
 		super(name, surname, area);
+		 this.cargo = cargo;
+		 setSenha(senha); // Define a senha personalizada
+    }
+
+    
+    private void setSenha(String senha) {
+		this.senha =senha;
 		
 	}
+
+
+	public Cargo getCargo() {
+		return cargo;
+	}
+    
+    public void gerenciarChamado(Chamado chamado, String novoStatus) {
+        chamado.setStatus(novoStatus);
+        System.out.println("Chamado " + chamado.getId() + " atualizado para status: " + novoStatus);
+    }
 
 }
