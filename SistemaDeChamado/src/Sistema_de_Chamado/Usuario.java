@@ -35,10 +35,14 @@ public class Usuario {
 	public Usuario(String name, String surname, Area area ) {
 		this.name=name;
 		this.surname=surname;
-		this.username=name+"."+surname;
+		this.username = generateUsername(name, surname);
 		this.area=area;
 		this.senha = "generica123";
 	}
+	
+	private String generateUsername(String name, String surname) {
+        return name.toLowerCase() + "." + surname.toLowerCase();
+    }
 	
 	public String getNameSurname() {
 		return name +" "+ surname;
