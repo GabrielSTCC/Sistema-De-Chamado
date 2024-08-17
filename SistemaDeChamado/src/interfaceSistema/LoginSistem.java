@@ -6,20 +6,41 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Estilizacao.Responsividade;
+
 import javax.swing.JLabel;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.color.ColorSpace;
 
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.font.ImageGraphicAttribute;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
+import java.awt.ComponentOrientation;
+import java.awt.Rectangle;
+import java.awt.Dimension;
+import javax.swing.DebugGraphics;
 
 public class LoginSistem extends JFrame {
+	
+	Responsividade tela;
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -32,6 +53,7 @@ public class LoginSistem extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				
 				try {
 					LoginSistem frame = new LoginSistem();
 					frame.setVisible(true);
@@ -41,19 +63,25 @@ public class LoginSistem extends JFrame {
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the frame.
+	 * @throws IOException 
 	 */
 	public LoginSistem() {
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1117, 666);
+		setSize(1280, 720);
+		setLayout(new GridLayout());
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
+		
+		tela = new Responsividade("/interfaceImg/ferramentas-de-revisao-de-codigo.png");
+		getContentPane().add(tela);
+		
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
 		
 		JButton btnNewButton = new JButton("Entrar");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -77,14 +105,14 @@ public class LoginSistem extends JFrame {
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setForeground(new Color(0, 0, 0));
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 36));
-		lblNewLabel_3.setBounds(0, 11, 1283, 87);
+		lblNewLabel_3.setBounds(10, 11, 1246, 87);
 		contentPane.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("SISTEMA DE CHAMADO");
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setForeground(new Color(128, 255, 255));
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 36));
-		lblNewLabel_4.setBounds(0, 11, 1288, 98);
+		lblNewLabel_4.setBounds(10, 11, 1246, 98);
 		contentPane.add(lblNewLabel_4);
 		
 		passwordField = new JPasswordField();
@@ -101,6 +129,7 @@ public class LoginSistem extends JFrame {
 		textField = new JTextField();
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		textField.setBounds(42, 245, 252, 41);
+		textField.setMixingCutoutShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(),30, 30));
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
@@ -111,9 +140,10 @@ public class LoginSistem extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setForeground(new Color(0, 0, 0));
+		lblNewLabel.setDebugGraphicsOptions(DebugGraphics.NONE_OPTION);
+		lblNewLabel.setSize(getWidth(), getHeight());
 		lblNewLabel.setIcon(new ImageIcon(LoginSistem.class.getResource("/interfaceImg/ferramentas-de-revisao-de-codigo.png")));
-		lblNewLabel.setBounds(0, 0, 1288, 706);
 		contentPane.add(lblNewLabel);
+		
 	}
 }
