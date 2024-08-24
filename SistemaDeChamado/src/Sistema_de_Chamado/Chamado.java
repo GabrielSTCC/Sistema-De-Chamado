@@ -4,15 +4,15 @@ public class Chamado {
 	 private int id;
 	    private String descricao;
 	    private Usuario usuario;
-	    private Area area;
+	    private AreaU area;
 	    private Cargo cargo;
 	    private String status;
 	    
-	public Chamado(int id, String descricao, Usuario usuario) {
+	public Chamado(int id, String descricao, Usuario usuario, AreaU area) {
 		this.id = id;
         this.descricao = descricao;
         this.usuario = usuario;
-        this.area = usuario.getArea(); // Associar a área do chamado com a área do usuário
+        this.area = area;
         this.cargo = null; // Opcional, dependendo da necessidade
         this.status = "Aberto"; // Status inicial
     }
@@ -42,11 +42,11 @@ public class Chamado {
         this.usuario = usuario;
     }
 
-    public Area getArea() {
+    public AreaU getArea() {
         return area;
     }
 
-    public void setArea(Area area) {
+    public void setArea(AreaU area) {
         this.area = area;
     }
 

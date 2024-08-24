@@ -1,43 +1,29 @@
 package Sistema_de_Chamado;
 
-enum Area{
-	TI(1,"TI"),
-	MANUTENCAO(2,"Manutencao"),
-	SUPRIMENTO(3, "Suprimento"),
-	ADM(4,"Adm"),
-	COMUM(5,"Comum");
-	
-	
-	private int valor;
-	private String nome;
-	
-	private Area(int valor, String nome) {
-		this.valor = valor;
-		this.nome = nome;
-	}
-	
-	public String getNome() {
-		return nome;
-	}
-	
-	public int getValor() {
-		return valor;
-	}
-}
+
 
 
 
 public class Usuario {
 	private String name, surname,username;
 	private String senha;
-	private Area area;
+	private AreaU areaChamado;
 	
-	public Usuario(String name, String surname, Area area ) {
+	
+	public Usuario(String name, String surname, String senha) {
 		this.name=name;
 		this.surname=surname;
 		this.username = generateUsername(name, surname);
-		this.area=area;
-		this.senha = "generica123";
+		
+		this.senha = senha;
+	}
+	
+	public void setAreaChamado(AreaU areaChamdo) {
+		this.areaChamado = areaChamdo;
+	}
+	
+	public AreaU getAreaChamado() {
+		return areaChamado;
 	}
 	
 	private String generateUsername(String name, String surname) {
@@ -48,12 +34,16 @@ public class Usuario {
 		return name +" "+ surname;
 	}
 	
-	public String getUsername() {
-		return username;
+	public String getName() {
+		return name;
 	}
 	
-	public Area getArea() {
-		return area;
+	public String getSurname() {
+		return surname;
+	}
+	
+	public String getUsername() {
+		return username;
 	}
 	
 	public String getSenha() {
@@ -62,7 +52,7 @@ public class Usuario {
 	
 	 public Chamado abrirChamado(String descricao) {
 	        int id = (int) (Math.random() * 1000); // Gerar um ID aleatório
-	        return new Chamado(id, descricao, this);
+	        return new Chamado(id, descricao, this, getAreaChamado());
 	    }
 	
 }

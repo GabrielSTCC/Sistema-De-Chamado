@@ -1,47 +1,22 @@
 package Sistema_de_Chamado;
 
-enum Cargo{
-	COORDENADOR(1,"Coordenador"),
-	ANALISTA(2,"Analista"),
-	TECNICO(3,"Tecnico"),
-	GERENTE(4,"Gerente"),
-	CEO(5,"CEO");
-	
-	private int valor;
-	private String nome;
-	
-	private Cargo(int valor, String nome) {
-		this.valor = valor;
-		this.nome = nome;
-	}
-	
-	public String getNome() {
-		return nome;
-	}
-	
-	public int getValor() {
-		return valor;
-	}
-}
 
 public class UsuarioADM extends Usuario{
 	
 	private Cargo cargo;
-	private String senha;
+	private AreaU area;
 	
 
-	public UsuarioADM(String name, String surname, Area area, Cargo cargo, String senha) {
-		super(name, surname, area);
+	public UsuarioADM(String name, String surname, AreaU area, Cargo cargo, String senha) {
+		super(name, surname, senha);
+		this.area=area;
 		 this.cargo = cargo;
-		 setSenha(senha); // Define a senha personalizada
+	 // Define a senha personalizada
     }
 
-    
-    private void setSenha(String senha) {
-		this.senha =senha;
-		
+	public AreaU getArea() {
+		return area;
 	}
-
 
 	public Cargo getCargo() {
 		return cargo;
