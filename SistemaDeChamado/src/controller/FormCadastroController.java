@@ -5,15 +5,15 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import Sistema_de_Chamado.AreaU;
-import Sistema_de_Chamado.Cargo;
-import Sistema_de_Chamado.Usuario;
-import Sistema_de_Chamado.UsuarioADM;
 import dao.Conexao;
 import dao.UsuarioAdmDAO;
 import dao.UsuarioDAO;
-import interfaceSistema.CadastroSistema;
-import interfaceSistema.CadastroSistema_Client;
+import model.AreaU;
+import model.Cargo;
+import model.Usuario;
+import model.UsuarioADM;
+import view.CadastroSistema;
+import view.CadastroSistema_Client;
 
 public class FormCadastroController {
 	
@@ -28,7 +28,7 @@ public class FormCadastroController {
 		this.view_client = view_client;
 	}
 	
-	public void salvaUser() {
+	public void salvaUser() throws ClassNotFoundException {
 		
 		
 		String name = view.getNameUser().getText();
@@ -78,31 +78,26 @@ public class FormCadastroController {
 	                
 	            }
 	        }
-
-	        UsuarioADM usuario = new UsuarioADM(name, surname, area, cargo, senha);
+	        int i = 0;
+	        UsuarioADM usuarioAdm = new UsuarioADM(i++, name, surname, cargo, area, senha);
 	        
-	        try {
-				Connection conexao = new Conexao().getConnection();
-				UsuarioAdmDAO usuarioAdmDao = new UsuarioAdmDAO(conexao);
-				usuarioAdmDao.insert(usuario);
-				
-				JOptionPane.showMessageDialog(null, "Usuario "+usuario.getUsername()+" Cadastrado com sucesso!");
-				
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+	        Connection conexao = new Conexao().abrirConexao();
+			UsuarioAdmDAO usuarioAdmDao = new UsuarioDAO(conexao);
+			usuarioAdmDao.cadastrarUsuarioAdm(usuarioAdm);
+			
+			JOptionPane.showMessageDialog(null, "Usuario "+usuarioAdm.getUsername()+" Cadastrado com sucesso!");
 	}
 	
 	public void salveClient() {
-		String name = view.getNameUser().getText();
-		String surname = view.getSurnameUser().getText();
-		char[] senhaArray = view.getSenhaUser().getPassword();
+		String name = view_client.getNameUser().getText();
+		String surname = view_client.getSurnameUser().getText();
+		char[] senhaArray = view_client.getSenhaUser().getPassword();
         String senha = new String(senhaArray);
-        
-        Usuario usuario = new Usuario(name, surname, senha);
+        int i = 0;
+        Usuario usuario = new Usuario(i++, name, surname, senha);
         
         try {
-			Connection conexao = new Conexao().getConnection();
+        	Connection conexao = new Conexao().abrirConexao();
 			UsuarioDAO usuarioDao = new UsuarioDAO(conexao);
 			usuarioDao.insert(usuario);
 			
