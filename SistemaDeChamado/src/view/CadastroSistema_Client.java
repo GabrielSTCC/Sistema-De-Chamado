@@ -24,7 +24,8 @@ import javax.swing.JTextField;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EmptyBorder;
 
-import controller.FormCadastroController;
+import controller.FormCadastroControllerUser;
+
 import javax.swing.SwingConstants;
 
 public class CadastroSistema_Client extends JFrame {
@@ -34,33 +35,13 @@ public class CadastroSistema_Client extends JFrame {
 	private JTextField nameUser;
 	private JTextField surnameUser;
 	private JPasswordField senhaUser;
-	private FormCadastroController controller;
+	private FormCadastroControllerUser controller;
 
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CadastroSistema_Client frame = new CadastroSistema_Client();
-					frame.setLocationRelativeTo(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
 	
-
-	/**
-	 * Create the frame.
-	 */
 	public CadastroSistema_Client() {
 		setExtendedState(Frame.MAXIMIZED_BOTH);
 		setLocationRelativeTo(null);
-		controller = new FormCadastroController(this);
+		controller = new FormCadastroControllerUser(this);
 		setBounds(100, 100, 835, 591);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(48, 6, 103));
@@ -102,20 +83,10 @@ public class CadastroSistema_Client extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				if (	nameUser.getText() != null && 
-						!nameUser.getText().isEmpty() &&
-						surnameUser.getText()!= null &&
-						!surnameUser.getText().isEmpty() &&
-						senhaUser.getText() != null &&
-						!senhaUser.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(btnNewButton, "Informações Cadastradas!");
-					controller.salveClient();
-					
-				}else {
-					JOptionPane.showMessageDialog(btnNewButton, "Preencha todas as Informações!", "Aviso", JOptionPane.WARNING_MESSAGE);
+					controller.salveUser(nameUser.getText(),surnameUser.getText(), senhaUser.getText());
 				}
 			}
-		});
+		);
 		btnNewButton.setBackground(new Color(155, 49, 247));
 		
 		JLabel lblNewLabel_5 = new JLabel("");
@@ -155,9 +126,7 @@ public class CadastroSistema_Client extends JFrame {
 		lblNewLabel_1_1_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				EscolhaDeCadastro cadastro = new EscolhaDeCadastro();
-				cadastro.setVisible(true);
-				dispose();
+				controller.voltar();
 			}
 		});
 		lblNewLabel_1_1_1.setForeground(Color.WHITE);
@@ -234,30 +203,6 @@ public class CadastroSistema_Client extends JFrame {
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
 		
-	}
-	
-	public void setNameUser(JTextField nameUser) {
-		this.nameUser = nameUser;
-	}
-	
-	public void setSurnameUser(JTextField surnameUser) {
-		this.surnameUser = surnameUser;
-	}
-	
-	public void setSenhaUser(JPasswordField senhaUser) {
-		this.senhaUser = senhaUser;
-	}
-	
-	public JTextField getNameUser() {
-		return nameUser;
-	}
-	
-	public JTextField getSurnameUser() {
-		return surnameUser;
-	}
-	
-	public JPasswordField getSenhaUser() {
-		return senhaUser;
 	}
 	
 

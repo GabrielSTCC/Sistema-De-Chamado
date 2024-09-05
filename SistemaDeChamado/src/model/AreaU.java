@@ -24,5 +24,20 @@ public enum AreaU{
 		return valor;
 	}
 
+	public static AreaU fromString(String area) {
+        switch (area) {
+            case "TI":
+                return TI;
+            case "MANUTENCAO":
+                return MANUTENCAO;
+            case "SUPRIMENTO":
+                return SUPRIMENTO;
+            case "ADMINISTRAÇÃO":
+                return ADM;
+            default:
+                return COMUM; // Valor padrão
+        }
+    }
+
 }
 

@@ -22,4 +22,19 @@ public enum Cargo{
 	public int getValor() {
 		return valor;
 	}
+
+	public static Cargo fromString(String cargo) {
+        switch (cargo) {
+            case "Tecnico":
+                return TECNICO;
+            case "Analista":
+                return ANALISTA;
+            case "Coordenador":
+                return COORDENADOR;
+            case "Gerente":
+                return GERENTE;
+            default:
+                throw new IllegalArgumentException("Cargo desconhecido: " + cargo);
+        }
+    }
 }

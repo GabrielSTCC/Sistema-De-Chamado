@@ -34,19 +34,7 @@ public class EscolhaDeCadastro extends JFrame implements ActionListener {
 	 */
 	
 	
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EscolhaDeCadastro frame = new EscolhaDeCadastro();
-					frame.setLocationRelativeTo(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	} */
+	
 
 	/**
 	 * Create the frame.

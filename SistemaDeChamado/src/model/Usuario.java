@@ -11,8 +11,7 @@ public class Usuario {
 	private AreaU areaChamado;
 	
 	
-	public Usuario(int id, String name, String surname, String senha) {
-		this.setId(id);
+	public Usuario(String name, String surname, String senha) {
 		this.name=name;
 		this.surname=surname;
 		this.username = generateUsername(name, surname);

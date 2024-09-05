@@ -11,8 +11,69 @@ import javax.swing.JOptionPane;
 import model.*;
 
 public class UsuarioAdmDAO {
+		//PostgreSQL estruturado na forma padrao:
+		private final Connection connection;
 	
-	private final Connection connection;
+		public UsuarioAdmDAO(Connection connection) {
+			this.connection = connection;
+		}
+		
+		public Connection getConnection() {
+			return connection;
+		}
+		
+		public void insert(UsuarioADM usuarioAdm) throws SQLException {
+		    String sql = "INSERT INTO usuarioadm (username, name, surname, cargo, area, senha) "
+		               + "VALUES (?, ?, ?, ?, ?, ?)";
+
+		    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+		        // Setando os parâmetros de forma segura
+		        statement.setString(1, usuarioAdm.getUsername());
+		        statement.setString(2, usuarioAdm.getName());
+		        statement.setString(3, usuarioAdm.getSurname());
+		        statement.setString(4, usuarioAdm.getCargo().getNome());
+		        statement.setString(5, usuarioAdm.getArea().getNome());
+		        statement.setString(6, usuarioAdm.getSenha());
+
+		        // Executa a inserção
+		        statement.executeUpdate();
+
+		        System.out.println("Usuário administrador cadastrado com sucesso!");
+
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        System.out.println("Erro ao cadastrar o usuário administrador.");
+		    }
+		}
+
+		
+	
+	//Configurado para PostgreSQL
+		/*private final Connection connection;
+		
+		public UsuarioAdmDAO(Connection connection) {
+			this.connection = connection;
+		}
+		
+		public Connection getConnection() {
+			return connection;
+		}
+		
+		public void insert(UsuarioADM usuarioAdm) throws SQLException {
+
+			String sql = "INSERT INTO usuariosadm (username, name, surname, cargo, area, senha) "
+					+ "VALUES ('"+usuarioAdm.getUsername()+"','"+usuarioAdm.getName() +"','"+usuarioAdm.getSurname()+"','"+usuarioAdm.getArea().getNome()+"','"
+					+usuarioAdm.getCargo().getNome()+"','"+usuarioAdm.getSenha()+"')";
+			
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.execute();
+			connection.close();
+				
+		}*/
+	
+	//Configurado para SQLite.
+	
+	/*private final Connection connection;
 	
 	public UsuarioAdmDAO(Connection connection) {
 		this.connection = connection;
@@ -93,29 +154,8 @@ public class UsuarioAdmDAO {
 		
 		return usuarioADM;
 		
-	}
-
-	
-	
-	/*private final Connection connection;
-	
-	public UsuarioAdmDAO(Connection connection) {
-		this.connection = connection;
-	}
-	
-	public Connection getConnection() {
-		return connection;
-	}
-	
-	public void insert(UsuarioADM usuarioAdm) throws SQLException {
-
-		String sql = "INSERT INTO usuariosadm (username, name, surname, cargo, area, senha) "
-				+ "VALUES ('"+usuarioAdm.getUsername()+"','"+usuarioAdm.getName() +"','"+usuarioAdm.getSurname()+"','"+usuarioAdm.getArea().getNome()+"','"
-				+usuarioAdm.getCargo().getNome()+"','"+usuarioAdm.getSenha()+"')";
-		
-		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.execute();
-		connection.close();
-			
 	}*/
+
+	
+	
 }

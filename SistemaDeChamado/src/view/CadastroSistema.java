@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controller.FormCadastroController;
+import controller.FormCadastroControllerADM;
 import model.*;
 
 import javax.swing.JLabel;
@@ -50,33 +50,15 @@ public class CadastroSistema extends JFrame {
 	private JTextField nameUser;
 	private JTextField surnameUser;
 	private JPasswordField senhaUser;
-
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CadastroSistema frame = new CadastroSistema();
-					frame.setLocationRelativeTo(frame);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-	
 	private JComboBox<Object> cargosUser;
 	private JComboBox<Object> areasUser;
-	private FormCadastroController controller;
+	private FormCadastroControllerADM controller;
 	
 	public CadastroSistema() {
 		setTitle("Cadastro ADM");
 		setExtendedState(Frame.MAXIMIZED_BOTH);
 		
-		controller = new FormCadastroController(this);
+		controller = new FormCadastroControllerADM(this);
 		setBounds(100, 100, 835, 591);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(48, 6, 103));
@@ -138,25 +120,11 @@ public class CadastroSistema extends JFrame {
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				if (	nameUser.getText() != null && 
-						!nameUser.getText().isEmpty() &&
-						surnameUser.getText()!= null &&
-						!surnameUser.getText().isEmpty() &&
-						cargosUser.getSelectedItem() != null &&
-						!cargosUser.getSelectedItem().equals("") &&
-						areasUser.getSelectedItem() != null &&
-						!areasUser.getSelectedItem().equals("") &&
-						senhaUser.getText() != null &&
-						!senhaUser.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(btnNewButton, "Informações Cadastradas!");
-					controller.salvaUser();
-					
-				}else {
-					JOptionPane.showMessageDialog(btnNewButton, "Preencha todas as Informações!", "Aviso", JOptionPane.WARNING_MESSAGE);
-				}
-			}
+		        // Passando os dados para o controller para que ele trate a lógica
+				controller.salvaUserADM(nameUser.getText(), surnameUser.getText(), senhaUser.getText(),
+						cargosUser.getSelectedItem().toString(), areasUser.getSelectedItem().toString());
+		    }
 		});
 		btnNewButton.setBackground(new Color(155, 49, 247));
 		
@@ -277,46 +245,6 @@ public class CadastroSistema extends JFrame {
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
 		
-	}
-	
-	public void setNameUser(JTextField nameUser) {
-		this.nameUser = nameUser;
-	}
-	
-	public void setSurnameUser(JTextField surnameUser) {
-		this.surnameUser = surnameUser;
-	}
-	
-	public void setSenhaUser(JPasswordField senhaUser) {
-		this.senhaUser = senhaUser;
-	}
-	
-	public void setAreasUser(JComboBox<Object> areasUser) {
-		this.areasUser = areasUser;
-	}
-	
-	public void setCargosUser(JComboBox<Object> cargosUser) {
-		this.cargosUser = cargosUser;
-	}
-	
-	public JTextField getNameUser() {
-		return nameUser;
-	}
-	
-	public JTextField getSurnameUser() {
-		return surnameUser;
-	}
-	
-	public JPasswordField getSenhaUser() {
-		return senhaUser;
-	}
-	
-	public JComboBox<Object> getAreasUser() {
-		return areasUser;
-	}
-	
-	public JComboBox<Object> getCargosUser() {
-		return cargosUser;
 	}
 	
 }

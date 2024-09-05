@@ -7,8 +7,8 @@ public class UsuarioADM extends Usuario{
 	private AreaU area;
 	
 
-	public UsuarioADM(int id, String name, String surname, Cargo cargo, AreaU area, String senha) {
-		super(id, name, surname, senha);
+	public UsuarioADM(String name, String surname, Cargo cargo, AreaU area, String senha) {
+		super(name, surname, senha);
 		this.area=area;
 		this.cargo = cargo;
 	 // Define a senha personalizada

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DAO {
 
-	private static PreparedStatement preparedStatement = null;
+	/*private static PreparedStatement preparedStatement = null;
 	private static ResultSet resultSet = null;
 	
 	private static String CADASTRAR_USUARIO_ADM = " INSERT INTO USUARIOADM "
@@ -54,7 +54,7 @@ public class DAO {
 
 	public static String getCONSULTAR_USUARIOS() {
 		return CONSULTAR_USUARIOS;
-	}
+	}*/
 
 	
 	
