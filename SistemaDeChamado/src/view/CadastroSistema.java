@@ -54,6 +54,48 @@ public class CadastroSistema extends JFrame {
 	private JComboBox<Object> areasUser;
 	private FormCadastroControllerADM controller;
 	
+	public JTextField getNameUser() {
+		return nameUser;
+	}
+
+	public void setNameUser(JTextField nameUser) {
+		this.nameUser = nameUser;
+	}
+
+	public JTextField getSurnameUser() {
+		return surnameUser;
+	}
+
+	public void setSurnameUser(JTextField surnameUser) {
+		this.surnameUser = surnameUser;
+	}
+
+	public JPasswordField getSenhaUser() {
+		return senhaUser;
+	}
+
+	public void setSenhaUser(JPasswordField senhaUser) {
+		this.senhaUser = senhaUser;
+	}
+
+	public JComboBox<Object> getCargosUser() {
+		return cargosUser;
+	}
+
+	public void setCargosUser(JComboBox<Object> cargosUser) {
+		this.cargosUser = cargosUser;
+	}
+
+	public JComboBox<Object> getAreasUser() {
+		return areasUser;
+	}
+
+	public void setAreasUser(JComboBox<Object> areasUser) {
+		this.areasUser = areasUser;
+	}
+
+	
+	
 	public CadastroSistema() {
 		setTitle("Cadastro ADM");
 		setExtendedState(Frame.MAXIMIZED_BOTH);
@@ -122,8 +164,9 @@ public class CadastroSistema extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		        // Passando os dados para o controller para que ele trate a lógica
-				controller.salvaUserADM(nameUser.getText(), surnameUser.getText(), senhaUser.getText(),
-						cargosUser.getSelectedItem().toString(), areasUser.getSelectedItem().toString());
+				/*controller.salvaUserADM(nameUser.getText(), surnameUser.getText(), senhaUser.getText(),
+						cargosUser.getSelectedItem().toString(), areasUser.getSelectedItem().toString());*/
+				controller.salvaUserADM();
 		    }
 		});
 		btnNewButton.setBackground(new Color(155, 49, 247));
