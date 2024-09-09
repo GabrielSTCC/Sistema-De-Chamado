@@ -84,7 +84,9 @@ public class LoginSistema extends JFrame {
 	
 	public LoginSistema() {
 		setExtendedState(Frame.MAXIMIZED_BOTH);
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		controller = new FormLoginController(this);
 		setBounds(100, 100, 872, 567);
 		setBackground(new Color(48, 6, 103));
 		contentPane = new JPanel();
@@ -116,12 +118,8 @@ public class LoginSistema extends JFrame {
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
+
 					controller.login();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 			}
 		});
 		btnNewButton.setForeground(Color.WHITE);

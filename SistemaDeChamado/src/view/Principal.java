@@ -10,32 +10,35 @@ import java.awt.Frame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.ImageIcon;
+import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+import javax.swing.JDesktopPane;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
+import java.awt.event.ActionEvent;
 
-public class Principal extends JFrame {
+public class Principal extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JDesktopPane desktopPane;
+	private InternalFrameCriarChamado criarChamado = new InternalFrameCriarChamado();
+	private InternalFrameMeusChamados meusChamados = new InternalFrameMeusChamados();
+	private JMenuItem mntmAbrirChamado;
+	private JMenuItem mntmVerChamado;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Principal frame = new Principal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public Principal() {
+		
+		
+		criarChamado.setMaximizable(false);
+		criarChamado.setBorder(null);
+		meusChamados.setResizable(true);
+		
+		meusChamados.setMaximizable(false);
+		meusChamados.setBorder(null);
+		meusChamados.setTitle("Meus Chamados");
+		meusChamados.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
 		setTitle("Sistema de Gestão de Chamado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,11 +57,13 @@ public class Principal extends JFrame {
 		mnChamado.setIcon(new ImageIcon(Principal.class.getResource("/interfaceImg/formato.png")));
 		menuBar.add(mnChamado);
 		
-		JMenuItem mntmAbrirChamado = new JMenuItem("Abrir Chamado");
+		mntmAbrirChamado = new JMenuItem("Abrir Chamado");
+		mntmAbrirChamado.addActionListener(this);
 		mntmAbrirChamado.setIcon(new ImageIcon(Principal.class.getResource("/interfaceImg/telefone.png")));
 		mnChamado.add(mntmAbrirChamado);
 		
-		JMenuItem mntmVerChamado = new JMenuItem("Ver Chamado");
+		mntmVerChamado = new JMenuItem("Ver Chamado");
+		mntmVerChamado.addActionListener(this);
 		mntmVerChamado.setIcon(new ImageIcon(Principal.class.getResource("/interfaceImg/noticia.png")));
 		mnChamado.add(mntmVerChamado);
 		
@@ -77,5 +82,33 @@ public class Principal extends JFrame {
 		JMenuItem mntmChamadoEncerrado = new JMenuItem("Chamados Encerrados");
 		mntmChamadoEncerrado.setIcon(new ImageIcon(Principal.class.getResource("/interfaceImg/auditar.png")));
 		mnAdministrarChamado.add(mntmChamadoEncerrado);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 39, 778, 413);
+		contentPane.add(panel);
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		desktopPane = new JDesktopPane();
+		desktopPane.add(criarChamado);
+		desktopPane.add(meusChamados);
+		desktopPane.setBackground(Color.LIGHT_GRAY);
+		panel.add(desktopPane, BorderLayout.CENTER);
 	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmVerChamado) {
+			actionPerformedMntmVerChamadoJMenuItem(e);
+		}
+		if (e.getSource() == mntmAbrirChamado) {
+			actionPerformedMntmAbrirChamadoJMenuItem(e);
+		}
+	}
+	// Exibe o InternalFrame "Criar Chamado"
+    protected void actionPerformedMntmAbrirChamadoJMenuItem(ActionEvent e) {
+            criarChamado.setVisible(true);
+    }
+
+    // Exibe o InternalFrame "Meus Chamados"
+    protected void actionPerformedMntmVerChamadoJMenuItem(ActionEvent e) {
+            meusChamados.setVisible(true);
+    }
 }

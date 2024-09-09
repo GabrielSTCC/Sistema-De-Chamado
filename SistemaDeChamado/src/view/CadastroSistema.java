@@ -102,6 +102,7 @@ public class CadastroSistema extends JFrame {
 	public CadastroSistema() {
 		setTitle("Cadastro ADM");
 		setExtendedState(Frame.MAXIMIZED_BOTH);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		controller = new FormCadastroControllerADM(this);
 		setBounds(100, 100, 835, 591);
