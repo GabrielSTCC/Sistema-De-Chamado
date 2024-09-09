@@ -41,6 +41,9 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Frame;
 import javax.swing.SwingConstants;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class CadastroSistema extends JFrame {
@@ -58,24 +61,24 @@ public class CadastroSistema extends JFrame {
 		return nameUser;
 	}
 
-	public void setNameUser(JTextField nameUser) {
-		this.nameUser = nameUser;
+	public void setNameUser(String nameUser) {
+		this.nameUser.setText(nameUser);
 	}
 
 	public JTextField getSurnameUser() {
 		return surnameUser;
 	}
 
-	public void setSurnameUser(JTextField surnameUser) {
-		this.surnameUser = surnameUser;
+	public void setSurnameUser(String surnameUser) {
+		this.surnameUser.setText(surnameUser);
 	}
 
 	public JPasswordField getSenhaUser() {
 		return senhaUser;
 	}
 
-	public void setSenhaUser(JPasswordField senhaUser) {
-		this.senhaUser = senhaUser;
+	public void setSenhaUser(String senhaUser) {
+		this.senhaUser.setText(senhaUser);
 	}
 
 	public JComboBox<Object> getCargosUser() {
@@ -200,6 +203,17 @@ public class CadastroSistema extends JFrame {
 					.addGap(13))
 				.addComponent(lblNewLabel_5, GroupLayout.PREFERRED_SIZE, 549, Short.MAX_VALUE)
 		);
+		
+		JLabel setaRetorno = new JLabel("");
+		setaRetorno.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		setaRetorno.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controller.retorno();
+			}
+		});
+		
+		setaRetorno.setIcon(new ImageIcon(CadastroSistema.class.getResource("/interfaceImg/seta-esquerda (1).png")));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -250,44 +264,51 @@ public class CadastroSistema extends JFrame {
 					.addComponent(senhaUser, GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
 					.addGap(154))
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(184)
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE))
+					.addGap(51)
+					.addComponent(setaRetorno)
+					.addGap(117)
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
+					.addGap(185))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblNewLabel_3_1, GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+							.addComponent(lblNewLabel_3_1, GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
 							.addGap(9))
-						.addComponent(lblNewLabel_4_1, GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE))
+						.addComponent(lblNewLabel_4_1, GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))
 					.addGap(5)
-					.addComponent(lblNewLabel_1, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+					.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 9, Short.MAX_VALUE)
 					.addGap(13)
 					.addComponent(nameUser, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 					.addGap(13)
-					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 9, Short.MAX_VALUE)
 					.addGap(13)
 					.addComponent(surnameUser, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 					.addGap(13)
-					.addComponent(lblNewLabel_2, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+					.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 9, Short.MAX_VALUE)
 					.addGap(13)
 					.addComponent(cargosUser, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
 					.addGap(13)
-					.addComponent(lblNewLabel_3, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+					.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 9, Short.MAX_VALUE)
 					.addGap(13)
 					.addComponent(areasUser, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
 					.addGap(13)
-					.addComponent(lblNewLabel_4, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+					.addComponent(lblNewLabel_4, GroupLayout.PREFERRED_SIZE, 13, Short.MAX_VALUE)
 					.addGap(13)
 					.addComponent(senhaUser, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-					.addGap(29)
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-					.addGap(13))
+					.addPreferredGap(ComponentPlacement.RELATED, 0, Short.MAX_VALUE)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+							.addGap(7))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(setaRetorno, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGap(13))))
 		);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
 		
 	}
-	
 }

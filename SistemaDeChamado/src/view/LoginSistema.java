@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.RoundRectangle2D;
+import java.lang.classfile.TypeAnnotation.ThrowsTarget;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,6 +28,9 @@ import java.awt.GridBagConstraints;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+
+import controller.FormLoginController;
+
 import java.awt.Component;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ImageIcon;
@@ -40,10 +45,28 @@ public class LoginSistema extends JFrame {
 	private JPanel contentPane;
 	private JTextField userText;
 	private JPasswordField passwordText;
+	private FormLoginController controller;
+	
+	public JTextField getUserText() {
+		return userText;
+	}
 
-	/**
-	 * Launch the application.
-	 */
+
+	public void setUserText(JTextField userText) {
+		this.userText = userText;
+	}
+
+
+	public JPasswordField getPasswordText() {
+		return passwordText;
+	}
+
+
+	public void setPasswordText(JPasswordField passwordText) {
+		this.passwordText = passwordText;
+	}
+
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -58,9 +81,7 @@ public class LoginSistema extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	
 	public LoginSistema() {
 		setExtendedState(Frame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -83,9 +104,7 @@ public class LoginSistema extends JFrame {
 		btnNewButton_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EscolhaDeCadastro telaEscolhaCadastroSistema = new EscolhaDeCadastro();
-				telaEscolhaCadastroSistema.setVisible(true);
-				dispose();
+				controller.cadastro();
 			}
 		});
 		btnNewButton_1.setForeground(Color.WHITE);
@@ -96,16 +115,12 @@ public class LoginSistema extends JFrame {
 		btnNewButton.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				if (	userText.getText() != null && 
-						!userText.getText().isEmpty() &&
-						passwordText.getText()!= null &&
-						!passwordText.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(btnNewButton, "Informações Validas!");
-					
-				}else {
-					JOptionPane.showMessageDialog(btnNewButton, "Preencha todas as Informações!", "Aviso", JOptionPane.WARNING_MESSAGE);
+				try {
+					controller.login();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});

@@ -36,8 +36,36 @@ public class CadastroSistema_Client extends JFrame {
 	private JTextField surnameUser;
 	private JPasswordField senhaUser;
 	private FormCadastroControllerUser controller;
-
 	
+	public JTextField getNameUser() {
+		return nameUser;
+	}
+
+
+	public void setNameUser(String nameUser) {
+		this.nameUser.setText(nameUser);
+	}
+
+
+	public JTextField getSurnameUser() {
+		return surnameUser;
+	}
+
+
+	public void setSurnameUser(String surnameUser) {
+		this.surnameUser.setText(surnameUser);
+	}
+
+
+	public JPasswordField getSenhaUser() {
+		return senhaUser;
+	}
+
+
+	public void setSenhaUser(String senhaUser) {
+		this.senhaUser.setText(senhaUser);
+	}
+
 	public CadastroSistema_Client() {
 		setExtendedState(Frame.MAXIMIZED_BOTH);
 		setLocationRelativeTo(null);
@@ -81,9 +109,8 @@ public class CadastroSistema_Client extends JFrame {
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-					controller.salveUser(nameUser.getText(),surnameUser.getText(), senhaUser.getText());
+					controller.salveUser();
 				}
 			}
 		);
@@ -126,7 +153,7 @@ public class CadastroSistema_Client extends JFrame {
 		lblNewLabel_1_1_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				controller.voltar();
+				controller.retorno();
 			}
 		});
 		lblNewLabel_1_1_1.setForeground(Color.WHITE);

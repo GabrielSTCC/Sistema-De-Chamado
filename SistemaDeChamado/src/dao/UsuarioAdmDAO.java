@@ -46,6 +46,23 @@ public class UsuarioAdmDAO {
 		    }
 		}
 
+		public Boolean existenciaDeUsuario(UsuarioADM usuarioADM) throws SQLException {
+		    String sql = "SELECT * FROM usuarioadm WHERE username = ? AND senha = ?";
+
+		    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+		        // Definindo os parâmetros
+		        statement.setString(1, usuarioADM.getUsername());
+		        statement.setString(2, usuarioADM.getSenha());
+
+		        // Executando a consulta, e não uma atualização
+		        ResultSet resultSet = statement.executeQuery();
+
+		        // Verificando se o ResultSet possui resultados
+		        return resultSet.next();  // Retorna true se existe um usuário com as credenciais fornecidas
+		    }
+		}
+
+
 		
 	
 	//Configurado para PostgreSQL

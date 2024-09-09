@@ -19,6 +19,11 @@ public class Usuario {
 		this.senha = senha;
 	}
 	
+	public Usuario(String username, String senha) {
+		this.username = username;
+		this.senha = senha;
+	}
+	
 	public void setAreaChamado(AreaU areaChamdo) {
 		this.areaChamado = areaChamdo;
 	}

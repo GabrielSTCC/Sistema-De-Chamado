@@ -13,6 +13,10 @@ public class UsuarioADM extends Usuario{
 		this.cargo = cargo;
 	 // Define a senha personalizada
     }
+	
+	public UsuarioADM(String username, String senha) {
+		super(username, senha);
+	}
 
 	public AreaU getArea() {
 		return area;

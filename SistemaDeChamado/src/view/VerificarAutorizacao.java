@@ -29,13 +29,6 @@ public class VerificarAutorizacao extends JDialog implements ActionListener {
 	private JFrame telaFrame;
 	private JButton cancelButton;
 
-	/**
-	 * Launch the application.
-	 */
-
-	/**
-	 * Create the dialog.
-	 */
 	public VerificarAutorizacao(JFrame telaFrame) {
 		
 		this.telaFrame = telaFrame;
