@@ -29,10 +29,10 @@ public class Principal extends JFrame implements ActionListener {
 	private JMenuItem mntmVerChamado;
 
 	public Principal() {
-		
-		
+		criarChamado.setMaximum(true);
 		criarChamado.setMaximizable(false);
 		criarChamado.setBorder(null);
+		meusChamados.setMaximum(true);
 		meusChamados.setResizable(true);
 		
 		meusChamados.setMaximizable(false);
