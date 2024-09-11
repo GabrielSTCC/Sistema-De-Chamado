@@ -2,10 +2,9 @@ package model;
 
 public enum AreaU{
 	TI(1,"TI"),
-	MANUTENCAO(2,"Manutencao"),
+	MANUTENCAO(2,"Manutenção"),
 	SUPRIMENTO(3, "Suprimento"),
-	ADM(4,"Adm"),
-	COMUM(5,"Comum");
+	ADM(4,"Administração");
 	
 	
 	private int valor;
@@ -28,14 +27,14 @@ public enum AreaU{
         switch (area) {
             case "TI":
                 return TI;
-            case "MANUTENCAO":
+            case "Manutenção":
                 return MANUTENCAO;
-            case "SUPRIMENTO":
+            case "Suprimento":
                 return SUPRIMENTO;
-            case "ADMINISTRAÇÃO":
+            case "Administração":
                 return ADM;
             default:
-                return COMUM; // Valor padrão
+            	throw new IllegalArgumentException("Cargo desconhecido: " + area);
         }
     }
 

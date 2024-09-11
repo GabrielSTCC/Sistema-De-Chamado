@@ -46,7 +46,7 @@ public class UsuarioAdmDAO {
 		    }
 		}
 
-		public Boolean existenciaDeUsuario(UsuarioADM usuarioADM) throws SQLException {
+		public boolean existenciaDeUsuario(UsuarioADM usuarioADM) throws SQLException {
 		    String sql = "SELECT * FROM usuarioadm WHERE username = ? AND senha = ?";
 
 		    try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -61,7 +61,24 @@ public class UsuarioAdmDAO {
 		        return resultSet.next();  // Retorna true se existe um usuário com as credenciais fornecidas
 		    }
 		}
-
+		
+		public UsuarioADM buscarPorUsername(String username) throws SQLException {
+	        String sql = "SELECT username, area, cargo FROM usuarioADM WHERE username = ?";
+	        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+	            statement.setString(1, username);
+	            try (ResultSet resultSet = statement.executeQuery()) {
+	                if (resultSet.next()) {
+	                    String username1 = resultSet.getString("username");
+	                    AreaU area = AreaU.fromString(resultSet.getString("area"));
+	                    Cargo cargo = Cargo.fromString(resultSet.getString("cargo"));
+	                    return new UsuarioADM(username1, area, cargo);
+	                } else {
+	                    return null;
+	                }
+	            }
+	        }
+	    }
+}
 
 		
 	
@@ -175,4 +192,4 @@ public class UsuarioAdmDAO {
 
 	
 	
-}
+

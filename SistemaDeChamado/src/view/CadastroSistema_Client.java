@@ -68,7 +68,6 @@ public class CadastroSistema_Client extends JFrame {
 
 	public CadastroSistema_Client() {
 		setExtendedState(Frame.MAXIMIZED_BOTH);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		controller = new FormCadastroControllerUser(this);
 		setBounds(100, 100, 835, 591);

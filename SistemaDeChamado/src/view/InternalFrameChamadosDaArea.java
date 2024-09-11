@@ -1,29 +1,27 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.GroupLayout.Alignment;
 
-import controller.ExibirChamadoController;
+import controller.ExibirChamadosAreaController;
 import controller.NaoEditavel;
 
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-public class InternalFrameMeusChamados extends JInternalFrame implements ActionListener {
+public class InternalFrameChamadosDaArea extends JInternalFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
+
 	private JTable table;
 	public NaoEditavel tableModel;
-    private ExibirChamadoController controller;
+    private ExibirChamadosAreaController controller;
     private JButton btnNewButton;
     
     public JTable getTable() {
@@ -38,24 +36,24 @@ public class InternalFrameMeusChamados extends JInternalFrame implements ActionL
         return  tableModel;
     }
 	
-    
-	public InternalFrameMeusChamados() {
+	public InternalFrameChamadosDaArea() {
 		setMaximizable(true);
-		setTitle("Meus Chamados");
+		setTitle("Chamados da Area");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setIconifiable(true);
 		setClosable(true);
 		setBounds(100, 100, 755, 580);
 			
-		String[] colunas = {"Id","Usuario", "Tipo de Solicitação", "Area Solicitada", "Descrição", "Data de Criação" };
+		String[] colunas = {"Id","Usuario", "Tipo de Solicitação", "Area Solicitada", "Descrição", "Status", "Data de Criação" };
 		tableModel = new NaoEditavel(colunas, 0);
         table = new JTable(tableModel);
         table.setShowVerticalLines(false);
         
         JScrollPane scrollPane = new JScrollPane(table);
         
-        btnNewButton = new JButton("Excluir");
+        btnNewButton = new JButton("Pegar");
         btnNewButton.addActionListener(this);
+        
         GroupLayout groupLayout = new GroupLayout(getContentPane());
         groupLayout.setHorizontalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
@@ -75,10 +73,10 @@ public class InternalFrameMeusChamados extends JInternalFrame implements ActionL
         );
         getContentPane().setLayout(groupLayout);
         
-        controller = new ExibirChamadoController(this);
+        controller = new ExibirChamadosAreaController(this);
         
         // Carrega os chamados do usuário logado
-        controller.carregarChamados();
+        controller.carregarChamadosArea();
         controller.iniciarAtualizacaoAutomatica();
 	}
 
@@ -88,6 +86,9 @@ public class InternalFrameMeusChamados extends JInternalFrame implements ActionL
 		}
 	}
 	protected void actionPerformedBtnNewButtonJButton(ActionEvent e) {
-		controller.excluirChamadosSelecionados();
+		controller.pegarChamado();
 	}
+
 }
+
+

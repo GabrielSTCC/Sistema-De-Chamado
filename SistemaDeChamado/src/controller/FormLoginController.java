@@ -18,6 +18,7 @@ import view.Principal;
 public class FormLoginController {
 	
 	private LoginSistema viewLogin;
+	 private Usuario usuarioLogado;
 	
 	public FormLoginController(LoginSistema viewLogin) {
 		this.viewLogin = viewLogin;
@@ -40,9 +41,10 @@ public class FormLoginController {
 	
 		        // Tenta autenticar como usuário comum
 		        Usuario usuarioAutenticar = new Usuario(username, senha);
-		        boolean usuarioExiste = usuarioDao.existenciaDeUsuario(usuarioAutenticar);
+		        boolean usuarioLogado = usuarioDao.existenciaDeUsuario(usuarioAutenticar);
 	
-		        if (usuarioExiste) {
+		        if (usuarioLogado) {
+		        	UserSessaoController.login(username, senha);
 		            abrirTelaPrincipal();
 		        } else {
 		            // Tenta autenticar como administrador
@@ -51,6 +53,7 @@ public class FormLoginController {
 		            boolean usuarioADMExiste = usuarioAdmDao.existenciaDeUsuario(usuarioADMAutenticar);
 	
 		            if (usuarioADMExiste) {
+		            	UserSessaoController.login(username, senha);
 		                abrirTelaPrincipal();
 		            } else {
 		                JOptionPane.showMessageDialog(null, "Usuário não encontrado.\nVerifique nome de usuário e senha!");

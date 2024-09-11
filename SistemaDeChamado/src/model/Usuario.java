@@ -1,15 +1,15 @@
 package model;
 
-
-
-
-
 public class Usuario {
 	private String name, surname,username;
 	private String senha;
 	private int id;
 	private AreaU areaChamado;
 	
+	
+	public Usuario() {
+		
+	}
 	
 	public Usuario(String name, String surname, String senha) {
 		this.name=name;
@@ -52,6 +52,10 @@ public class Usuario {
 		return username;
 	}
 	
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public String getSenha() {
 		return senha;
 	}

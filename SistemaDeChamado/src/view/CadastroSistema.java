@@ -102,7 +102,6 @@ public class CadastroSistema extends JFrame {
 	public CadastroSistema() {
 		setTitle("Cadastro ADM");
 		setExtendedState(Frame.MAXIMIZED_BOTH);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		controller = new FormCadastroControllerADM(this);
 		setBounds(100, 100, 835, 591);
@@ -155,7 +154,7 @@ public class CadastroSistema extends JFrame {
 		cargosUser.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		areasUser = new JComboBox<Object>();
-		areasUser.setModel(new DefaultComboBoxModel<Object>(new String[] {"", "TI", "MANUTENCAO", "SUPRIMENTO", "ADMINISTRACAO"}));
+		areasUser.setModel(new DefaultComboBoxModel<Object>(new String[] {"", "TI", "Manutenção", "Suprimento", "Administração"}));
 		areasUser.setBorder(new EmptyBorder(0, 0, 0, 0));
 		areasUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		areasUser.setFont(new Font("Tahoma", Font.PLAIN, 16));

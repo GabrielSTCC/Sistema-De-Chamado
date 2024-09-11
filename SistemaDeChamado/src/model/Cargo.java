@@ -4,8 +4,7 @@ public enum Cargo{
 	COORDENADOR(1,"Coordenador"),
 	ANALISTA(2,"Analista"),
 	TECNICO(3,"Tecnico"),
-	GERENTE(4,"Gerente"),
-	CEO(5,"CEO");
+	GERENTE(4,"Gerente");
 	
 	private int valor;
 	private String nome;

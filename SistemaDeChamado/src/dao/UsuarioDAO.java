@@ -57,17 +57,24 @@ public class UsuarioDAO {
 	    }
 	}
 
+	public Usuario buscarPorUsername(String username) throws SQLException {
+        String sql = "SELECT * FROM usuario WHERE username = ?";
 
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
 
+            if (resultSet.next()) {
+            	String username1 = resultSet.getString("username");
+                String senha = resultSet.getString("senha");
 
-	/*public void insert(Usuario usuario) throws SQLException{
-		
-		String sql = "INSERT INTO usuarios (username, name, surname, senha)"
-				+ "VALUES ('"+usuario.getUsername()+"','"+usuario.getName() +
-				"','"+usuario.getSurname()+"','"+usuario.getSenha()+"')";
-		
-		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.execute();
-		connection.close();
-	}*/
+                Usuario usuario = new Usuario(username1, senha);
+
+                return usuario;
+            } else {
+                return null;
+            }
+        }
+	}
+
 }

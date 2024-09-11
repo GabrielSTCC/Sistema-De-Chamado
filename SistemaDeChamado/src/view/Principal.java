@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controller.PrincipalController;
+
 import javax.swing.JMenuBar;
 import java.awt.Frame;
 import javax.swing.JMenu;
@@ -17,29 +20,38 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
 import java.awt.event.ActionEvent;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JInternalFrame;
 
 public class Principal extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JDesktopPane desktopPane;
 	private InternalFrameCriarChamado criarChamado = new InternalFrameCriarChamado();
 	private InternalFrameMeusChamados meusChamados = new InternalFrameMeusChamados();
+	private InternalFrameChamadosDaArea chamadosDaArea = new InternalFrameChamadosDaArea();
 	private JMenuItem mntmAbrirChamado;
 	private JMenuItem mntmVerChamado;
+	private JMenuItem mntmVerChamados;
+    private JMenuItem mntmChamadosPegos;
+    private JMenuItem mntmChamadoEncerrado;
+    private JMenu mnAdministrarChamado;
+    private PrincipalController controller;
+
+	public JMenu getMnAdministrarChamado() {
+		return mnAdministrarChamado;
+	}
+
+	public void setMnAdministrarChamado(boolean isVible) {
+		if(mnAdministrarChamado != null) {
+		 mnAdministrarChamado.setVisible(isVible);
+		}
+	}
 
 	public Principal() {
-		criarChamado.setMaximum(true);
-		criarChamado.setMaximizable(false);
-		criarChamado.setBorder(null);
-		meusChamados.setMaximum(true);
-		meusChamados.setResizable(true);
 		
-		meusChamados.setMaximizable(false);
-		meusChamados.setBorder(null);
-		meusChamados.setTitle("Meus Chamados");
-		meusChamados.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		
+		setExtendedState(Frame.MAXIMIZED_BOTH);
 		setTitle("Sistema de Gestão de Chamado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 792, 489);
@@ -47,11 +59,8 @@ public class Principal extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 778, 37);
-		contentPane.add(menuBar);
 		
 		JMenu mnChamado = new JMenu("Chamado");
 		mnChamado.setIcon(new ImageIcon(Principal.class.getResource("/interfaceImg/formato.png")));
@@ -67,48 +76,97 @@ public class Principal extends JFrame implements ActionListener {
 		mntmVerChamado.setIcon(new ImageIcon(Principal.class.getResource("/interfaceImg/noticia.png")));
 		mnChamado.add(mntmVerChamado);
 		
-		JMenu mnAdministrarChamado = new JMenu("Administrar Chamados ");
+		mnAdministrarChamado = new JMenu("Administrar Chamados ");
 		mnAdministrarChamado.setIcon(new ImageIcon(Principal.class.getResource("/interfaceImg/apresentacao.png")));
 		menuBar.add(mnAdministrarChamado);
 		
-		JMenuItem mntmVerChamados = new JMenuItem("Ver Chamados");
+		mntmVerChamados = new JMenuItem("Ver Chamados");
+		mntmVerChamados.addActionListener(this);
 		mntmVerChamados.setIcon(new ImageIcon(Principal.class.getResource("/interfaceImg/noticia.png")));
 		mnAdministrarChamado.add(mntmVerChamados);
 		
-		JMenuItem mntmChamadosPegos = new JMenuItem("Chamados Pegos");
+		mntmChamadosPegos = new JMenuItem("Chamados Pegos");
 		mntmChamadosPegos.setIcon(new ImageIcon(Principal.class.getResource("/interfaceImg/marketing-de-conteudo.png")));
 		mnAdministrarChamado.add(mntmChamadosPegos);
 		
-		JMenuItem mntmChamadoEncerrado = new JMenuItem("Chamados Encerrados");
+		mntmChamadoEncerrado = new JMenuItem("Chamados Encerrados");
 		mntmChamadoEncerrado.setIcon(new ImageIcon(Principal.class.getResource("/interfaceImg/auditar.png")));
 		mnAdministrarChamado.add(mntmChamadoEncerrado);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 39, 778, 413);
-		contentPane.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
-		desktopPane = new JDesktopPane();
-		desktopPane.add(criarChamado);
-		desktopPane.add(meusChamados);
+		JDesktopPane desktopPane = new JDesktopPane();
 		desktopPane.setBackground(Color.LIGHT_GRAY);
+		try {
+			criarChamado.setMaximum(true);
+		} catch (PropertyVetoException e) {
+			
+			e.printStackTrace();
+		}
+		criarChamado.setMaximizable(false);
+
+		criarChamado.setBounds(0, 0, 766, 413);
+		desktopPane.add(criarChamado);
+		try {
+			meusChamados.setMaximum(true);
+		} catch (PropertyVetoException e) {
+			
+			e.printStackTrace();
+		}
+		meusChamados.setMaximizable(false);
+		desktopPane.add(meusChamados);
+		
+		try {
+			chamadosDaArea.setMaximum(true);
+		} catch (PropertyVetoException e) {
+			
+			e.printStackTrace();
+		}
+		chamadosDaArea.setMaximizable(false);
+		
+		desktopPane.add(chamadosDaArea);
 		panel.add(desktopPane, BorderLayout.CENTER);
+		desktopPane.setLayout(null);
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addComponent(menuBar, GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
+				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(menuBar, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+					.addGap(2)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
+		);
+		contentPane.setLayout(gl_contentPane);
+		
+		controller = new PrincipalController(this);
 	}
+	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmVerChamados) {
+			actionPerformedMntmVerChamadosJMenuItem(e);
+		}
 		if (e.getSource() == mntmVerChamado) {
 			actionPerformedMntmVerChamadoJMenuItem(e);
 		}
-		if (e.getSource() == mntmAbrirChamado) {
+		if(e.getSource() == mntmAbrirChamado) {
 			actionPerformedMntmAbrirChamadoJMenuItem(e);
 		}
 	}
-	// Exibe o InternalFrame "Criar Chamado"
-    protected void actionPerformedMntmAbrirChamadoJMenuItem(ActionEvent e) {
-            criarChamado.setVisible(true);
-    }
-
-    // Exibe o InternalFrame "Meus Chamados"
-    protected void actionPerformedMntmVerChamadoJMenuItem(ActionEvent e) {
-            meusChamados.setVisible(true);
-    }
+	
+	protected void actionPerformedMntmAbrirChamadoJMenuItem(ActionEvent e) {
+		criarChamado.setVisible(true);
+	}
+	
+	protected void actionPerformedMntmVerChamadoJMenuItem(ActionEvent e) {
+		meusChamados.setVisible(true);
+	}
+	
+	protected void actionPerformedMntmVerChamadosJMenuItem(ActionEvent e) {
+		chamadosDaArea.setVisible(true);
+	}
 }
