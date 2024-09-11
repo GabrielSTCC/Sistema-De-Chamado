@@ -7,43 +7,38 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import dao.ChamadoDAO;
 import dao.Conexao;
-import dao.UsuarioAdmDAO;
-import model.AreaU;
 import model.Chamado;
-import model.StatusChamado;
 import model.UsuarioADM;
-import view.InternalFrameChamadosDaArea;
+import view.InternalFrameChamadosEncerrados;
+import view.InternalFrameChamadosPegos;
+import view.InternalFrameMeusChamados;
 
-public class ExibirChamadosAreaController {
-	InternalFrameChamadosDaArea viewChamadosDaArea;
+public class ExibirChamadoEncerradoController {
+	InternalFrameChamadosEncerrados viewChamadosEncerrados;
 	private ChamadoDAO chamadoDAO;
 	private NaoEditavel tableModel;
 	
-	public ExibirChamadosAreaController(InternalFrameChamadosDaArea viewChamadosDaArea) {
-		this.viewChamadosDaArea = viewChamadosDaArea;
+
+	public ExibirChamadoEncerradoController(InternalFrameChamadosEncerrados viewChamadosEncerrados) {
+		this.viewChamadosEncerrados = viewChamadosEncerrados;
 		try {
 			this.chamadoDAO = new ChamadoDAO(new Conexao().getConnection());
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		 this.tableModel = viewChamadosDaArea.getTableModel(); // Obtém o modelo da tabela
+		 this.tableModel = viewChamadosEncerrados.getTableModel(); // Obtém o modelo da tabela
 	}
-	
-	public void carregarChamadosArea() {
+	public void carregarChamadosEncerrados() {
 	    try {
 	        UsuarioADM usuarioADM = (UsuarioADM) UserSessaoController.getUsuarioLogado();
 	        String area = usuarioADM.getArea().getNome();
-	        String status = "Aberto";
+	        String status = "Fechado";
 	        
-	        List<Chamado> chamados = chamadoDAO.buscarMeuChamadoPorArea(area,status);
-	        
-	        // Limpa a tabela existente
-	        //viewChamadosDaArea.tableModel.setRowCount(0);
+	        List<Chamado> chamados = chamadoDAO.buscarMeuChamadoPorArea(area, status);
 	        
 	        // Adiciona os chamados na tabela
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -54,10 +49,10 @@ public class ExibirChamadosAreaController {
 	                chamado.getTipoSolicitacao().getTitulo(),
 	                chamado.getArea().getNome(),
 	                chamado.getDescricao(),
-	                chamado.getStatus().getDescricao(), // Certifique-se de que isso está correto
+	                chamado.getStatus().getDescricao(), 
 	                chamado.getDataCriacao().format(formatter)
 	            };
-	            viewChamadosDaArea.tableModel.addRow(row);
+	            viewChamadosEncerrados.tableModel.addRow(row);
 	        }
 	        
 	        System.out.println("Tabela carregada com sucesso.");
@@ -68,44 +63,13 @@ public class ExibirChamadosAreaController {
 	    }
 	}
 	
-	public void pegarChamado() {
-		JTable table = viewChamadosDaArea.getTable();
-	    int[] selectedRows = table.getSelectedRows(); // Obtém as linhas selecionadas
-
-	    if (selectedRows.length > 0) {
-	        int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente pegar os chamados selecionados?", "Pegar Chamados", JOptionPane.YES_NO_OPTION);
-
-	        if (resposta == JOptionPane.YES_OPTION) {
-	            // Itera sobre as linhas selecionadas
-	            for (int i = selectedRows.length - 1; i >= 0; i--) {
-	                int row = selectedRows[i];
-	                int id =  (int) table.getValueAt(row, 0); // Ajuste o índice da coluna conforme necessário
-
-	                try {
-	                    // Chama o método no DAO para excluir o chamado do banco de dados
-	                    chamadoDAO.pegarChamadoPorId(id); // Ajuste conforme necessário
-
-	                    // Remove a linha da tabela após a exclusão
-	                    //((DefaultTableModel) table.getModel()).removeRow(row);
-	                } catch (SQLException e) {
-	                    JOptionPane.showMessageDialog(null, "Erro ao pegar o chamado: " + e.getMessage());
-	                }
-	            }
-
-	            JOptionPane.showMessageDialog(null, "Chamados pego com sucesso!");
-	        }
-	    } else {
-	        JOptionPane.showMessageDialog(null, "Selecione um ou mais chamados para pegar.");
-	    }
-	}
-	
 	public void atualizarTabela() {
 		// Limpar a tabela existente
-	    DefaultTableModel tableModel = (DefaultTableModel) viewChamadosDaArea.getTable().getModel();
+	    DefaultTableModel tableModel = (DefaultTableModel) viewChamadosEncerrados.getTable().getModel();
 	    tableModel.setRowCount(0); // Remove todas as linhas existentes
 	    UsuarioADM usuarioADM = (UsuarioADM) UserSessaoController.getUsuarioLogado();
         String area = usuarioADM.getArea().getNome();
-        String status = "Aberto";
+        String status = "Fechado";
 	    // Recarregar os dados do banco de dados
 	    try {
 	    	List<Chamado> chamados = chamadoDAO.buscarMeuChamadoPorArea(area, status);
@@ -117,7 +81,7 @@ public class ExibirChamadosAreaController {
 		                chamado.getTipoSolicitacao().getTitulo(),
 		                chamado.getArea().getNome(),
 		                chamado.getDescricao(),
-		                chamado.getStatus().getDescricao(), // Certifique-se de que isso está correto
+		                chamado.getStatus().getDescricao(), 
 		                chamado.getDataCriacao().format(formatter)
 	            };
 	            tableModel.addRow(row);

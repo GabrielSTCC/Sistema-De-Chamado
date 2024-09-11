@@ -1,31 +1,27 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.GroupLayout.Alignment;
 
-import controller.ExibirChamadoController;
+import controller.ExibirChamadoEncerradoController;
+import controller.ExibirChamadosAreaController;
 import controller.NaoEditavel;
 
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-public class InternalFrameMeusChamados extends JInternalFrame implements ActionListener {
+public class InternalFrameChamadosEncerrados extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
+
 	private JTable table;
 	public NaoEditavel tableModel;
-    private ExibirChamadoController controller;
-    private JButton btnNewButton;
-    
+    private ExibirChamadoEncerradoController controller;
+	
     public JTable getTable() {
 		return table;
 	}
@@ -37,11 +33,10 @@ public class InternalFrameMeusChamados extends JInternalFrame implements ActionL
 	public NaoEditavel getTableModel() {
         return  tableModel;
     }
-	
     
-	public InternalFrameMeusChamados() {
+	public InternalFrameChamadosEncerrados() {
 		setMaximizable(true);
-		setTitle("Meus Chamados");
+		setTitle("Chamados da Area");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setIconifiable(true);
 		setClosable(true);
@@ -54,40 +49,26 @@ public class InternalFrameMeusChamados extends JInternalFrame implements ActionL
         
         JScrollPane scrollPane = new JScrollPane(table);
         
-        btnNewButton = new JButton("Excluir");
-        btnNewButton.addActionListener(this);
+        
         GroupLayout groupLayout = new GroupLayout(getContentPane());
         groupLayout.setHorizontalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
         		.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
         		.addGroup(groupLayout.createSequentialGroup()
-        			.addContainerGap(640, Short.MAX_VALUE)
-        			.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-        			.addGap(10))
-        );
+        			.addContainerGap(640, Short.MAX_VALUE)));
+        
         groupLayout.setVerticalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
         		.addGroup(groupLayout.createSequentialGroup()
         			.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
-        			.addGap(11)
-        			.addComponent(btnNewButton)
-        			.addGap(11))
-        );
+        			.addGap(11)));
         getContentPane().setLayout(groupLayout);
         
-        controller = new ExibirChamadoController(this);
+        controller = new ExibirChamadoEncerradoController(this);
         
         // Carrega os chamados do usuário logado
-        controller.carregarChamados();
+        controller.carregarChamadosEncerrados();
         controller.iniciarAtualizacaoAutomatica();
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnNewButton) {
-			actionPerformedBtnNewButtonJButton(e);
-		}
-	}
-	protected void actionPerformedBtnNewButtonJButton(ActionEvent e) {
-		controller.excluirChamadosSelecionados();
-	}
 }

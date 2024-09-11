@@ -23,7 +23,7 @@ public enum StatusChamado {
         }
         throw new IllegalArgumentException("Status inválido: " + status);
     }
-    /*public static StatusChamado fromString(String descricao) {
+    public static StatusChamado fromString2(String descricao) {
     	switch (descricao) {
         case "Aberto":
             return ABERTO;
@@ -34,5 +34,5 @@ public enum StatusChamado {
         default:
         	throw new IllegalArgumentException("Cargo desconhecido: " + descricao);
     	}
-    }*/
+    }
 }

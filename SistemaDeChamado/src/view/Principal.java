@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.DesktopPaneUI;
 
 import controller.PrincipalController;
 
@@ -31,6 +32,8 @@ public class Principal extends JFrame implements ActionListener {
 	private InternalFrameCriarChamado criarChamado = new InternalFrameCriarChamado();
 	private InternalFrameMeusChamados meusChamados = new InternalFrameMeusChamados();
 	private InternalFrameChamadosDaArea chamadosDaArea = new InternalFrameChamadosDaArea();
+	private InternalFrameChamadosPegos chamadosPegos = new InternalFrameChamadosPegos();
+	private InternalFrameChamadosEncerrados chamadosEncerrados = new InternalFrameChamadosEncerrados();
 	private JMenuItem mntmAbrirChamado;
 	private JMenuItem mntmVerChamado;
 	private JMenuItem mntmVerChamados;
@@ -86,10 +89,12 @@ public class Principal extends JFrame implements ActionListener {
 		mnAdministrarChamado.add(mntmVerChamados);
 		
 		mntmChamadosPegos = new JMenuItem("Chamados Pegos");
+		mntmChamadosPegos.addActionListener(this);
 		mntmChamadosPegos.setIcon(new ImageIcon(Principal.class.getResource("/interfaceImg/marketing-de-conteudo.png")));
 		mnAdministrarChamado.add(mntmChamadosPegos);
 		
 		mntmChamadoEncerrado = new JMenuItem("Chamados Encerrados");
+		mntmChamadoEncerrado.addActionListener(this);
 		mntmChamadoEncerrado.setIcon(new ImageIcon(Principal.class.getResource("/interfaceImg/auditar.png")));
 		mnAdministrarChamado.add(mntmChamadoEncerrado);
 		
@@ -124,8 +129,26 @@ public class Principal extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 		chamadosDaArea.setMaximizable(false);
-		
 		desktopPane.add(chamadosDaArea);
+		
+		try {
+			chamadosPegos.setMaximum(true);
+		} catch (PropertyVetoException e) {
+			
+			e.printStackTrace();
+		}
+		chamadosPegos.setMaximizable(false);
+		desktopPane.add(chamadosPegos);
+		
+		try {
+			chamadosEncerrados.setMaximum(true);
+		} catch (PropertyVetoException e) {
+			
+			e.printStackTrace();
+		}
+		chamadosEncerrados.setMaximizable(false);
+		desktopPane.add(chamadosEncerrados);
+		
 		panel.add(desktopPane, BorderLayout.CENTER);
 		desktopPane.setLayout(null);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -147,6 +170,12 @@ public class Principal extends JFrame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmChamadoEncerrado) {
+			actionPerformedMntmChamadoEncerradoJMenuItem(e);
+		}
+		if (e.getSource() == mntmChamadosPegos) {
+			actionPerformedMntmChamadosPegosJMenuItem(e);
+		}
 		if (e.getSource() == mntmVerChamados) {
 			actionPerformedMntmVerChamadosJMenuItem(e);
 		}
@@ -168,5 +197,11 @@ public class Principal extends JFrame implements ActionListener {
 	
 	protected void actionPerformedMntmVerChamadosJMenuItem(ActionEvent e) {
 		chamadosDaArea.setVisible(true);
+	}
+	protected void actionPerformedMntmChamadosPegosJMenuItem(ActionEvent e) {
+		chamadosPegos.setVisible(true);
+	}
+	protected void actionPerformedMntmChamadoEncerradoJMenuItem(ActionEvent e) {
+		chamadosEncerrados.setVisible(true);
 	}
 }

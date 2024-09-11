@@ -73,16 +73,16 @@ public class ChamadoDAO {
             	
             	int id = resultSet.getInt("id");
                 String titulo = resultSet.getString("titulo");
-                String area = resultSet.getString("area");
                 String descricao = resultSet.getString("descricao");
                 java.sql.Timestamp timestamp = resultSet.getTimestamp("data");
                 LocalDateTime data = timestamp.toLocalDateTime();
-                
+                String areaString = resultSet.getString("area");
+                String status = resultSet.getString("status");
+                AreaU areaSolicitada = AreaU.fromString(areaString); // Corrige a variável 'area'
                 Titulo tipoSolicitacao = Titulo.fromString(titulo);
-                AreaU areaSolicitada = AreaU.fromString(area);
+                StatusChamado statusChamado = StatusChamado.fromString2(status); // Ajusta o status conforme necessário
                 
-                Chamado chamado = new Chamado(id, username, tipoSolicitacao, areaSolicitada, descricao, data);
-
+                Chamado chamado = new Chamado(id, username, tipoSolicitacao, areaSolicitada, descricao, statusChamado, data);
                 chamados.add(chamado);
             }
         } catch (Exception e) {
@@ -92,12 +92,13 @@ public class ChamadoDAO {
         return chamados;
 	}
 	
-	public List<Chamado> buscarMeuChamadoPorArea(String area) throws SQLException {
+	public List<Chamado> buscarMeuChamadoPorArea(String area, String status) throws SQLException {
 	    List<Chamado> chamados = new ArrayList<>();
-	    String sql = "SELECT * FROM chamadosabertos WHERE area = ?"; // Ajuste a consulta conforme necessário
+	    String sql = "SELECT * FROM chamadosabertos WHERE area = ? AND status = ?"; // Ajuste a consulta conforme necessário
 
 	    try (PreparedStatement statement = connection.prepareStatement(sql)) {
 	        statement.setString(1, area);
+	        statement.setString(2, status);
 	        try (ResultSet resultSet = statement.executeQuery()) {
 	            while (resultSet.next()) {
 	                int id = resultSet.getInt("id");
@@ -109,7 +110,7 @@ public class ChamadoDAO {
 	                String areaString = resultSet.getString("area");
 	                AreaU areaSolicitada = AreaU.fromString(areaString); // Corrige a variável 'area'
 	                Titulo tipoSolicitacao = Titulo.fromString(titulo);
-	                StatusChamado statusChamado = StatusChamado.fromString(resultSet.getString("status")); // Ajusta o status conforme necessário
+	                StatusChamado statusChamado = StatusChamado.fromString2(status); // Ajusta o status conforme necessário
 	                
 	                Chamado chamado = new Chamado(id, username, tipoSolicitacao, areaSolicitada, descricao, statusChamado, data);
 	                chamados.add(chamado);
@@ -122,7 +123,17 @@ public class ChamadoDAO {
 	public void pegarChamadoPorId(int id) throws SQLException {
 	    String sql = "UPDATE chamadosabertos SET status = ? WHERE id = ?";
 	    try (PreparedStatement statement = connection.prepareStatement(sql)) {
-	        statement.setString(1, StatusChamado.ABERTO.toString()); // Usando o enum
+	        statement.setString(1, StatusChamado.EM_ANDAMENTO.getDescricao()); // Usando o enum
+	        statement.setInt(2, id);
+	        
+	        statement.executeUpdate();
+	    }
+	}
+	
+	public void encerrarChamdo(int id) throws SQLException {
+	    String sql = "UPDATE chamadosabertos SET status = ? WHERE id = ?";
+	    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+	        statement.setString(1, StatusChamado.FECHADO.getDescricao()); // Usando o enum
 	        statement.setInt(2, id);
 	        
 	        statement.executeUpdate();

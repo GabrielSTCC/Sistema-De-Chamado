@@ -43,12 +43,13 @@ public class ExibirChamadoController {
 	        for (Chamado chamado : chamados) {
 	        	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	            Object[] row = {
-	            	chamado.getId(),
-	                chamado.getUsuario(),
-	                chamado.getTipoSolicitacao(),
-	                chamado.getArea().toString(),
-	                chamado.getDescricao(),
-	                chamado.getDataCriacao().format(formatter)
+	            		chamado.getId(),
+		                chamado.getUsuario(),
+		                chamado.getTipoSolicitacao().getTitulo(),
+		                chamado.getArea().getNome(),
+		                chamado.getDescricao(),
+		                chamado.getStatus().getDescricao(), 
+		                chamado.getDataCriacao().format(formatter)
 	            };
 	            viewMeusChamados.tableModel.addRow(row);
 	        }
@@ -99,12 +100,13 @@ public class ExibirChamadoController {
 	        for (Chamado chamado : chamados) {
 	            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	            Object[] row = {
-	                chamado.getId(),
-	                chamado.getUsuario(),
-	                chamado.getTipoSolicitacao(),
-	                chamado.getArea(),
-	                chamado.getDescricao(),
-	                chamado.getDataCriacao().format(formatter)
+	            		chamado.getId(),
+		                chamado.getUsuario(),
+		                chamado.getTipoSolicitacao().getTitulo(),
+		                chamado.getArea().getNome(),
+		                chamado.getDescricao(),
+		                chamado.getStatus().getDescricao(), 
+		                chamado.getDataCriacao().format(formatter)
 	            };
 	            tableModel.addRow(row);
 	        }
