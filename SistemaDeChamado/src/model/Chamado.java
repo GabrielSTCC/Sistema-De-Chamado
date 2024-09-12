@@ -11,7 +11,10 @@ public class Chamado {
 	    private Titulo tipoSolicitacao;
 	    private StatusChamado status;
 	    private LocalDateTime dataCriacao;
+	    private String responsavel;
 	    
+	
+
 	public Chamado(int id,String nomeSolicitante, Titulo tipoSolicitacaoo, AreaU area2, String descricao, LocalDateTime data) {
 		this.id = id;
 		this.usuario = nomeSolicitante;
@@ -20,6 +23,7 @@ public class Chamado {
         this.descricao = descricao;
         this.status = StatusChamado.ABERTO; // Status inicial
         this.dataCriacao = data;
+        
     }
 	
 	public Chamado(String nomeSolicitante, Titulo tipoSolicitacaoo, AreaU area2, String descricao, LocalDateTime data) {
@@ -31,7 +35,7 @@ public class Chamado {
         this.dataCriacao = data;
     }
 	
-	public Chamado(int id,String nomeSolicitante, Titulo tipoSolicitacaoo, AreaU area2, String descricao, StatusChamado status, LocalDateTime data) {
+	public Chamado(int id,String nomeSolicitante, Titulo tipoSolicitacaoo, AreaU area2, String descricao, StatusChamado status, LocalDateTime data, String responsavel) {
 		this.id = id;
 		this.usuario = nomeSolicitante;
         this.tipoSolicitacao = tipoSolicitacaoo;
@@ -39,6 +43,7 @@ public class Chamado {
         this.descricao = descricao;
         this.status = status; 
         this.dataCriacao = data;
+        this.responsavel = responsavel;
     }
 
     // Getters e Setters
@@ -103,6 +108,10 @@ public class Chamado {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public String getResponsavel() {
+		return responsavel;
 	}
 	
 	

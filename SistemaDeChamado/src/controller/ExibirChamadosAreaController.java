@@ -52,7 +52,8 @@ public class ExibirChamadosAreaController {
 	                chamado.getArea().getNome(),
 	                chamado.getDescricao(),
 	                chamado.getStatus().getDescricao(), // Certifique-se de que isso está correto
-	                chamado.getDataCriacao().format(formatter)
+	                chamado.getDataCriacao().format(formatter),
+	                chamado.getResponsavel()
 	            };
 	            viewChamadosDaArea.tableModel.addRow(row);
 	        }
@@ -66,6 +67,8 @@ public class ExibirChamadosAreaController {
 	}
 	
 	public void pegarChamado() {
+		UsuarioADM usuarioADM = (UsuarioADM) UserSessaoController.getUsuarioLogado();
+		String username = usuarioADM.getUsername();
 		JTable table = viewChamadosDaArea.getTable();
 	    int[] selectedRows = table.getSelectedRows(); // Obtém as linhas selecionadas
 
@@ -80,7 +83,7 @@ public class ExibirChamadosAreaController {
 
 	                try {
 	                    // Chama o método no DAO para excluir o chamado do banco de dados
-	                    chamadoDAO.pegarChamadoPorId(id); // Ajuste conforme necessário
+	                    chamadoDAO.pegarChamadoPorId(id, username); // Ajuste conforme necessário
 
 	                    ((DefaultTableModel) table.getModel()).removeRow(row);
 	                } catch (SQLException e) {
@@ -114,7 +117,8 @@ public class ExibirChamadosAreaController {
 		                chamado.getArea().getNome(),
 		                chamado.getDescricao(),
 		                chamado.getStatus().getDescricao(), // Certifique-se de que isso está correto
-		                chamado.getDataCriacao().format(formatter)
+		                chamado.getDataCriacao().format(formatter),
+		                chamado.getResponsavel()
 	            };
 	            tableModel.addRow(row);
 	        }

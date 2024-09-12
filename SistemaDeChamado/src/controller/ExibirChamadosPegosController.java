@@ -35,8 +35,9 @@ public class ExibirChamadosPegosController {
 	        UsuarioADM usuarioADM = (UsuarioADM) UserSessaoController.getUsuarioLogado();
 	        String area = usuarioADM.getArea().getNome();
 	        String status = "Em Andamento";
+	        String username = usuarioADM.getUsername();
 	        
-	        List<Chamado> chamados = chamadoDAO.buscarMeuChamadoPorArea(area, status);
+	        List<Chamado> chamados = chamadoDAO.buscarMeuChamadoPorResponsavel(area, status, username);
 	        
 	        // Adiciona os chamados na tabela
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -48,7 +49,8 @@ public class ExibirChamadosPegosController {
 	                chamado.getArea().getNome(),
 	                chamado.getDescricao(),
 	                chamado.getStatus().getDescricao(), 
-	                chamado.getDataCriacao().format(formatter)
+	                chamado.getDataCriacao().format(formatter),
+	                chamado.getResponsavel()
 	            };
 	            viewChamadosPegos.tableModel.addRow(row);
 	        }
@@ -99,9 +101,10 @@ public class ExibirChamadosPegosController {
 	    UsuarioADM usuarioADM = (UsuarioADM) UserSessaoController.getUsuarioLogado();
         String area = usuarioADM.getArea().getNome();
         String status = "Em Andamento";
+        String username = usuarioADM.getUsername();
 	    // Recarregar os dados do banco de dados
 	    try {
-	    	List<Chamado> chamados = chamadoDAO.buscarMeuChamadoPorArea(area, status);
+	    	List<Chamado> chamados = chamadoDAO.buscarMeuChamadoPorResponsavel(area, status, username);
 	        for (Chamado chamado : chamados) {
 	            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	            Object[] row = {

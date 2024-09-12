@@ -37,8 +37,9 @@ public class ExibirChamadoEncerradoController {
 	        UsuarioADM usuarioADM = (UsuarioADM) UserSessaoController.getUsuarioLogado();
 	        String area = usuarioADM.getArea().getNome();
 	        String status = "Fechado";
+	        String username = usuarioADM.getUsername();
 	        
-	        List<Chamado> chamados = chamadoDAO.buscarMeuChamadoPorArea(area, status);
+	        List<Chamado> chamados = chamadoDAO.buscarMeuChamadoPorResponsavel(area, status, username);
 	        
 	        // Adiciona os chamados na tabela
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -50,7 +51,8 @@ public class ExibirChamadoEncerradoController {
 	                chamado.getArea().getNome(),
 	                chamado.getDescricao(),
 	                chamado.getStatus().getDescricao(), 
-	                chamado.getDataCriacao().format(formatter)
+	                chamado.getDataCriacao().format(formatter),
+	                chamado.getResponsavel()
 	            };
 	            viewChamadosEncerrados.tableModel.addRow(row);
 	        }
@@ -70,9 +72,10 @@ public class ExibirChamadoEncerradoController {
 	    UsuarioADM usuarioADM = (UsuarioADM) UserSessaoController.getUsuarioLogado();
         String area = usuarioADM.getArea().getNome();
         String status = "Fechado";
+        String username = usuarioADM.getUsername();
 	    // Recarregar os dados do banco de dados
 	    try {
-	    	List<Chamado> chamados = chamadoDAO.buscarMeuChamadoPorArea(area, status);
+	    	List<Chamado> chamados = chamadoDAO.buscarMeuChamadoPorResponsavel(area, status, username);
 	        for (Chamado chamado : chamados) {
 	            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	            Object[] row = {
@@ -82,7 +85,8 @@ public class ExibirChamadoEncerradoController {
 		                chamado.getArea().getNome(),
 		                chamado.getDescricao(),
 		                chamado.getStatus().getDescricao(), 
-		                chamado.getDataCriacao().format(formatter)
+		                chamado.getDataCriacao().format(formatter),
+		                chamado.getResponsavel()
 	            };
 	            tableModel.addRow(row);
 	        }

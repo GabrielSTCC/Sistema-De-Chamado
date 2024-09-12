@@ -42,7 +42,7 @@ public class InternalFrameChamadosEncerrados extends JInternalFrame {
 		setClosable(true);
 		setBounds(100, 100, 755, 580);
 			
-		String[] colunas = {"Id","Usuario", "Tipo de Solicitação", "Area Solicitada", "Descrição", "Status", "Data de Criação" };
+		String[] colunas = {"Id","Usuario", "Tipo de Solicitação", "Area Solicitada", "Descrição", "Status", "Data de Criação", "Atendente"};
 		tableModel = new NaoEditavel(colunas, 0);
         table = new JTable(tableModel);
         table.setShowVerticalLines(false);
