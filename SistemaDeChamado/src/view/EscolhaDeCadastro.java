@@ -43,7 +43,7 @@ public class EscolhaDeCadastro extends JFrame implements ActionListener {
 		setExtendedState(Frame.MAXIMIZED_BOTH);
 		setLocationRelativeTo(null);
 		getContentPane().setBackground(new Color(48, 6, 103));
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Escolha de Cadastro");
 		setResizable(true);
 		setBounds(100, 100, 866, 564);

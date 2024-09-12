@@ -134,7 +134,7 @@ public class LoginSistema extends JFrame {
 		senhaLabel.setForeground(new Color(255, 255, 255));
 		senhaLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
-		JLabel nomeLabel = new JLabel("Nome:");
+		JLabel nomeLabel = new JLabel("Usuario:");
 		nomeLabel.setBackground(new Color(255, 255, 255));
 		nomeLabel.setForeground(new Color(255, 255, 255));
 		nomeLabel.setFont(new Font("Tahoma", Font.BOLD, 20));

@@ -91,6 +91,18 @@ public class ChamadoDAO {
         }
         return chamados;
 	}
+	public StatusChamado buscarStatusChamadoPorId(int id) throws SQLException {
+	    String sql = "SELECT status FROM chamadosabertos WHERE id = ?";
+	    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+	        statement.setInt(1, id);
+	        ResultSet resultSet = statement.executeQuery();
+	        if (resultSet.next()) {
+	            String statusString = resultSet.getString("status");
+	            return StatusChamado.fromString2(statusString); // Converte a string para o enum StatusChamado
+	        }
+	    }
+	    return null; // Retorna null se não encontrar o chamado
+	}
 	
 	public List<Chamado> buscarMeuChamadoPorArea(String area, String status) throws SQLException {
 	    List<Chamado> chamados = new ArrayList<>();
@@ -130,7 +142,7 @@ public class ChamadoDAO {
 	    }
 	}
 	
-	public void encerrarChamdo(int id) throws SQLException {
+	public void encerrarChamado(int id) throws SQLException {
 	    String sql = "UPDATE chamadosabertos SET status = ? WHERE id = ?";
 	    try (PreparedStatement statement = connection.prepareStatement(sql)) {
 	        statement.setString(1, StatusChamado.FECHADO.getDescricao()); // Usando o enum

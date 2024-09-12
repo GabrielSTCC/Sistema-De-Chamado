@@ -76,7 +76,7 @@ public class ExibirChamadosPegosController {
 
 	                try {
 	                    // Chama o método no DAO para excluir o chamado do banco de dados
-	                    chamadoDAO.encerrarChamdo(id); // Ajuste conforme necessário
+	                    chamadoDAO.encerrarChamado(id); // Ajuste conforme necessário
 
 	                    // Remove a linha da tabela após a exclusão
 	                    ((DefaultTableModel) table.getModel()).removeRow(row);

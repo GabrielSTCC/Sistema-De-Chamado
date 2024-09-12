@@ -36,7 +36,7 @@ public class InternalFrameChamadosEncerrados extends JInternalFrame {
     
 	public InternalFrameChamadosEncerrados() {
 		setMaximizable(true);
-		setTitle("Chamados da Area");
+		setTitle("Chamados Encerrados");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setIconifiable(true);
 		setClosable(true);

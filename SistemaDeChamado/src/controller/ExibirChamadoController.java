@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import dao.ChamadoDAO;
 import dao.Conexao;
 import model.Chamado;
+import model.StatusChamado;
 import view.InternalFrameMeusChamados;
 
 public class ExibirChamadoController {
@@ -72,20 +73,29 @@ public class ExibirChamadoController {
 	                int id =  (int) table.getValueAt(row, 0); // Ajuste o índice da coluna conforme necessário
 
 	                try {
-	                    // Chama o método no DAO para excluir o chamado do banco de dados
-	                    chamadoDAO.excluirChamadoPorId(id); // Ajuste conforme necessário
+	                	StatusChamado statusChamado = chamadoDAO.buscarStatusChamadoPorId(id);
 
-	                    // Remove a linha da tabela após a exclusão
-	                    ((DefaultTableModel) table.getModel()).removeRow(row);
+	                    // Verifica se o chamado está com status "Aberto"
+	                    if (statusChamado == StatusChamado.ABERTO) {
+	                    	 // Se o chamado estiver aberto, permite a exclusão
+	                    	int confirm = JOptionPane.showConfirmDialog(null, "Você tem certeza que deseja excluir este chamado?", "Confirmação", JOptionPane.YES_NO_OPTION);
+	                    	if (confirm == JOptionPane.YES_OPTION) {
+	                    		chamadoDAO.excluirChamadoPorId(id); // Chama o método que exclui o chamado do banco de dados
+		                        JOptionPane.showMessageDialog(null, "Chamado excluído com sucesso!");
+		                        ((DefaultTableModel) table.getModel()).removeRow(row);
+	                    	}
+	                    } else {
+	                        // Caso contrário, informa que apenas chamados abertos podem ser excluídos
+	                        JOptionPane.showMessageDialog(null, "Apenas chamados com status 'Aberto' podem ser excluídos.", "Erro", JOptionPane.ERROR_MESSAGE);
+	                    }
+	                    
 	                } catch (SQLException e) {
 	                    JOptionPane.showMessageDialog(null, "Erro ao excluir o chamado: " + e.getMessage());
 	                }
 	            }
-
-	            JOptionPane.showMessageDialog(null, "Chamados excluídos com sucesso!");
 	        }
 	    } else {
-	        JOptionPane.showMessageDialog(null, "Selecione um ou mais chamados para excluir.");
+	        JOptionPane.showMessageDialog(null, "Selecione um chamado para excluir.");
 	    }
 	}
 	

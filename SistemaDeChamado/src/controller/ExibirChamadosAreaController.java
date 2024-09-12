@@ -42,9 +42,6 @@ public class ExibirChamadosAreaController {
 	        
 	        List<Chamado> chamados = chamadoDAO.buscarMeuChamadoPorArea(area,status);
 	        
-	        // Limpa a tabela existente
-	        //viewChamadosDaArea.tableModel.setRowCount(0);
-	        
 	        // Adiciona os chamados na tabela
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	        for (Chamado chamado : chamados) {
@@ -85,8 +82,7 @@ public class ExibirChamadosAreaController {
 	                    // Chama o método no DAO para excluir o chamado do banco de dados
 	                    chamadoDAO.pegarChamadoPorId(id); // Ajuste conforme necessário
 
-	                    // Remove a linha da tabela após a exclusão
-	                    //((DefaultTableModel) table.getModel()).removeRow(row);
+	                    ((DefaultTableModel) table.getModel()).removeRow(row);
 	                } catch (SQLException e) {
 	                    JOptionPane.showMessageDialog(null, "Erro ao pegar o chamado: " + e.getMessage());
 	                }
@@ -95,7 +91,7 @@ public class ExibirChamadosAreaController {
 	            JOptionPane.showMessageDialog(null, "Chamados pego com sucesso!");
 	        }
 	    } else {
-	        JOptionPane.showMessageDialog(null, "Selecione um ou mais chamados para pegar.");
+	        JOptionPane.showMessageDialog(null, "Selecione um chamado para pegar.");
 	    }
 	}
 	
