@@ -65,22 +65,7 @@ public class LoginSistema extends JFrame {
 	public void setPasswordText(JPasswordField passwordText) {
 		this.passwordText = passwordText;
 	}
-
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LoginSistema frame = new LoginSistema();
-					frame.setLocationRelativeTo(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	
 	public LoginSistema() {
 		setExtendedState(Frame.MAXIMIZED_BOTH);

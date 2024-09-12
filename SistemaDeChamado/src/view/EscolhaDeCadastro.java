@@ -20,6 +20,10 @@ import javax.swing.JFrame;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.border.EmptyBorder;
+
+import controller.EscolhaDeCadatroCrotroller;
+import controller.VerificarAutorizacaoController;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Frame;
@@ -28,6 +32,7 @@ public class EscolhaDeCadastro extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JButton btnNewButton_1;
+	private EscolhaDeCadatroCrotroller controller;
 
 	/**
 	 * Launch the application.
@@ -49,6 +54,8 @@ public class EscolhaDeCadastro extends JFrame implements ActionListener {
 		setBounds(100, 100, 866, 564);
 		setBackground(new Color(48, 6, 103));
 		
+		controller = new EscolhaDeCadatroCrotroller(this);
+		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(38, 32, 62));
 		
@@ -62,8 +69,9 @@ public class EscolhaDeCadastro extends JFrame implements ActionListener {
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VerificarAutorizacao autorizacao = new VerificarAutorizacao(EscolhaDeCadastro.this);
-				autorizacao.setVisible(true);
+				/*VerificarAutorizacao autorizacao = new VerificarAutorizacao(EscolhaDeCadastro.this);
+				autorizacao.setVisible(true);*/
+				controller.chamarVerificacao();
 			}
 		});
 		btnNewButton.setForeground(Color.WHITE);
@@ -92,9 +100,7 @@ public class EscolhaDeCadastro extends JFrame implements ActionListener {
 		lblNewLabel_1_1_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				LoginSistema loginSistema = new LoginSistema();
-				loginSistema.setVisible(true);
-				dispose();
+				controller.retornoLogin();
 			}
 		});
 		lblNewLabel_1_1_1.setForeground(new Color(255, 255, 255));
@@ -172,8 +178,6 @@ public class EscolhaDeCadastro extends JFrame implements ActionListener {
 		}
 	}
 	protected void actionPerformedBtnNewButton_1JButton(ActionEvent e) {
-		CadastroSistema_Client cadastroSistema_Client =  new CadastroSistema_Client();
-		cadastroSistema_Client.setVisible(true);
-		dispose();
+		controller.cadatrarCliente();
 	}
 }

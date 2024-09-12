@@ -8,6 +8,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controller.VerificarAutorizacaoController;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -24,14 +27,16 @@ public class VerificarAutorizacao extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
+	public JTextField textField;
 	private JButton okButton;
 	private JFrame telaFrame;
 	private JButton cancelButton;
+	private VerificarAutorizacaoController controller;
 
 	public VerificarAutorizacao(JFrame telaFrame) {
 		
 		this.telaFrame = telaFrame;
+		this.controller = new VerificarAutorizacaoController(this);
 		
 		setLocationRelativeTo(telaFrame);
 		setTitle("Autorização");
@@ -88,24 +93,9 @@ public class VerificarAutorizacao extends JDialog implements ActionListener {
 		}
 	}
 	protected void actionPerformedOkButtonJButton(ActionEvent e) {
-		String codigoInserido = textField.getText();
-        String codigoAutorizacao = "1234"; // Código de autorização definido
-
-        // Verificar se o código está correto
-        if (codigoInserido.equals(codigoAutorizacao)) {
-            JOptionPane.showMessageDialog(contentPanel, "Código correto! Você pode se cadastrar.");
-            // Aqui você pode abrir a tela de cadastro
-            new CadastroSistema().setVisible(true);
-            dispose(); // Fechar a mini tela
-            if (telaFrame != null) {
-            	telaFrame.dispose();
-			}
-            
-        } else {
-            JOptionPane.showMessageDialog(contentPanel, "Código incorreto. Tente novamente.");
-        }
+		controller.verificar();
 	}
 	protected void actionPerformedCancelButtonJButton(ActionEvent e) {
-		dispose();
+		controller.fecharTela();
 	}
 }
