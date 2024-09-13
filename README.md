@@ -99,7 +99,7 @@ Este é um sistema de gerenciamento de chamados desenvolvido em Java, seguindo o
 
 ## Contribuição
 
-Contribuições são bem-vindas! Para sugerir melhorias ou reportar bugs, por favor, abra uma [issue](https://github.com/seu-usuario/sistema-de-chamados/issues) ou envie um pull request.
+Contribuições são bem-vindas! Para sugerir melhorias ou reportar bugs, por favor, abra uma [issue](https://github.com/GabrielSTCC/sistema-de-chamados/issues) ou envie um pull request.
 
 ## Licença
 
