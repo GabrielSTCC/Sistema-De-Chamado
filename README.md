@@ -34,7 +34,7 @@ Este é um sistema de gerenciamento de chamados desenvolvido em Java, seguindo o
 - **Java**: Linguagem de programação principal.
 - **Swing**: Biblioteca gráfica utilizada para desenvolver a interface do usuário.
 - **PostgreSQL**: Sistema de banco de dados relacional.
-- **Railway**: Plataforma para hospedar o banco de dados PostgreSQL.
+- **Railway**: Plataforma para hospedar o banco de dados PostgreSQL. Acesso: https://railway.app/invite/8ZrLTTHd5_q
 - **Maven**: Gerenciamento de dependências e construção do projeto.
 - **Padrão MVC**: Arquitetura do sistema.
 
