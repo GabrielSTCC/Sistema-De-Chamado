@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+            <dependency xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="Pom.xsd">
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>42.7.4</version>
+            </dependency>
+        
